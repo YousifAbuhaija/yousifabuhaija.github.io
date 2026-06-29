@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Join your chapter · DSober</title>
+  <meta name="description" content="You've been invited to join your chapter on DSober — safe rides home from verified designated drivers." />
+  <!-- Smart App Banner: lets iOS offer the app at the top of Safari -->
+  <meta name="apple-itunes-app" content="app-id=6779471581" />
+  <meta name="theme-color" content="#080F1E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #080F1E;
+      --surface: #0E1729;
+      --border: #1E2A42;
+      --text: #EAF0FB;
+      --muted: #93A2BF;
+      --brand: #4F86F7;
+      --lime: #BEF264;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Poppins', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background-image:
+        radial-gradient(900px 500px at 50% -10%, rgba(79,134,247,0.18), transparent 70%),
+        radial-gradient(700px 500px at 50% 120%, rgba(190,242,100,0.08), transparent 70%);
+    }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: linear-gradient(180deg, rgba(14,23,41,0.9), rgba(8,15,30,0.9));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px 28px 32px;
+      text-align: center;
+      box-shadow: 0 30px 80px -40px rgba(0,0,0,0.8);
+    }
+    .mark {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: 30px;
+      letter-spacing: -0.5px;
+      margin-bottom: 28px;
+    }
+    .mark .dot { color: var(--lime); }
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--lime);
+      background: rgba(190,242,100,0.1);
+      border: 1px solid rgba(190,242,100,0.25);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -0.3px;
+      margin-bottom: 14px;
+    }
+    p.lede { color: var(--muted); font-size: 15px; line-height: 1.55; margin-bottom: 28px; }
+    .cta {
+      display: block;
+      width: 100%;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 17px;
+      color: #fff;
+      background: var(--brand);
+      border: 0;
+      border-radius: 14px;
+      padding: 16px;
+      cursor: pointer;
+      box-shadow: 0 12px 30px -10px rgba(79,134,247,0.7);
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+    .cta:active { transform: scale(0.985); }
+    .cta:disabled { opacity: 0.6; cursor: default; }
+    .fine { color: var(--muted); font-size: 12.5px; line-height: 1.5; margin-top: 18px; }
+    .steps { text-align: left; margin: 26px 4px 0; display: grid; gap: 12px; }
+    .step { display: flex; gap: 12px; align-items: flex-start; color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+    .step b { color: var(--text); font-weight: 600; }
+    .num {
+      flex: none; width: 22px; height: 22px; border-radius: 999px;
+      background: rgba(79,134,247,0.15); color: var(--brand);
+      font-size: 12px; font-weight: 600; display: grid; place-items: center; margin-top: 1px;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="mark">DSober<span class="dot">.</span></div>
+    <div class="badge" id="badge">You're invited</div>
+    <h1 id="title">Join your chapter on DSober</h1>
+    <p class="lede" id="lede">
+      DSober gets you a safe ride home from a verified designated driver in your fraternity.
+      Install the app and you'll join your chapter automatically — no code to type.
+    </p>
+    <button class="cta" id="get">Get DSober</button>
+    <div class="steps">
+      <div class="step"><span class="num">1</span><span>Tap <b>Get DSober</b> to install from the App Store.</span></div>
+      <div class="step"><span class="num">2</span><span>Open the app and create your account.</span></div>
+      <div class="step"><span class="num">3</span><span>You'll <b>join your chapter automatically</b> — no access code needed.</span></div>
+    </div>
+    <p class="fine" id="fine">Already have DSober? This link should open it automatically.</p>
+  </main>
+
+  <script>
+    (function () {
+      var token = new URLSearchParams(location.search).get('t');
+      var APP_STORE = 'https://apps.apple.com/app/id6779471581';
+      var inviteUrl = location.href; // includes ?t=…, which the app re-parses
+      var btn = document.getElementById('get');
+
+      // No token → generic install page (drop the invite framing).
+      if (!token) {
+        var b = document.getElementById('badge'); if (b) b.remove();
+        document.getElementById('title').textContent = 'Get DSober';
+        document.getElementById('lede').textContent =
+          'Safe rides home from verified designated drivers in your fraternity.';
+      }
+
+      btn.addEventListener('click', async function () {
+        btn.disabled = true;
+        btn.textContent = 'Opening the App Store…';
+        // Copy the invite link so the freshly-installed app can pick it up from
+        // the clipboard on first launch and auto-join the right chapter.
+        try { if (token) await navigator.clipboard.writeText(inviteUrl); } catch (e) {}
+        window.location.href = APP_STORE;
+      });
+    })();
+  </script>
+</body>
+</html>
